@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Explorations of Visualizations</title>
+	<style>
+    #area {
+    	border: 1px solid #BBB;
+    	height: 400px;
+    	width: 800px;
+    }
+	</style>
+	<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+</head>
+<body>
+<h1>Generative Design</h1>
+<h2>P1.1: Color Spectrum</h2>
+
+<script type="text/javascript">
+
+var height = 400;
+var width = 800;
+
+function draw(coordinates) {
+	svg.selectAll("*").remove();
+	var stepX = Math.abs(coordinates[0])+2;
+	var stepY = Math.abs(coordinates[1])+2;
+
+	for(var gridY=0; gridY<height; gridY += stepY){
+		for(var gridX=0; gridX<width; gridX += stepX){
+			var fill = d3.hsl(gridX, gridY/height,0.5);
+			svg.append("rect")
+				.attr("fill", fill.rgb())
+				.attr("x",gridX)
+				.attr("y",gridY)
+				.attr("width", stepX)
+				.attr("height", stepY)
+
+		}
+	}
+}
+var svg = d3
+	.select("body")
+	.append("svg")
+	.attr("id","area")
+
+var length = 360;
+
+svg.on('mousemove', function () {
+	var coordinates = [0, 0];
+	coordinates = d3.mouse(this);
+	draw(coordinates);
+});
+</script>
+</body>
+</html>

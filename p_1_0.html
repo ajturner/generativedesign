@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Explorations of Visualizations</title>
+	<style>
+    #area {
+    	border: 1px solid #BBB;
+    	height: 360px;
+    	width: 360px;
+    }
+	</style>
+</head>
+<body>
+<h1>Generative Design</h1>
+<h2>P1.0: Hello, Color</h2>
+
+<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+
+function draw(coordinates) {
+	var x = Math.abs(coordinates[0]);
+	var y = Math.abs(coordinates[1]);
+
+	var innerFill = d3.hsl(360-y/2.0, 1.0,0.5);
+	var outerFill = d3.hsl(y/2.0, 1.0,0.5);
+
+	outer.attr("fill", outerFill.rgb())
+
+	inner.attr("height",x)
+		.attr("width",x)
+		.attr("fill", innerFill.rgb())
+		.attr("x",Math.abs(length-x)/2.0)
+		.attr("y",Math.abs(length-x)/2.0)
+}
+var svg = d3
+	.select("body")
+	.append("svg")
+	.attr("id","area")
+
+var length = 360;
+var outer = svg.append("rect")
+			   .attr("width", length).attr("height", length)
+var inner = svg.append("rect").attr("fill","#FFFFFF").attr("x",length/2.0).attr("y",length/2.0)
+
+svg.on('mousemove', function () {
+	var coordinates = [0, 0];
+	coordinates = d3.mouse(this);
+	draw(coordinates);
+});
+</script>
+</body>
+</html>
