@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Explorations of Visualizations</title>
+	<style>
+	body {
+		background-color: white;
+		color: black;
+	}
+    #area {
+    	border: 1px solid #444;
+    	height: 600px;
+    	width: 600px
+    }
+	</style>
+	<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+</head>
+<body>
+<h1>Generative Design</h1>
+<h2>P2.0: Hello, Shape</h2>
+
+<p>X: varies radius - Y: varies angular resolution &amp; width</p>
+<script type="text/javascript">
+var height = 600;
+var width = 600;
+
+var svg = d3
+	.select("body")
+	.append("svg")
+	.attr("id","area")
+
+var angleScale = d3.scale.linear()
+    .domain([0,width])
+    .range([2,10]);
+
+var lineFunction = d3.svg.line()
+                     .x(function(d) { return d.x; })
+                     .y(function(d) { return d.y; })
+                     .interpolate("linear");	
+
+function clear() {
+	svg.selectAll("*").remove();
+}
+function draw(coordinates) {
+	//clear();
+	var circleResolution = angleScale(coordinates[1])
+	var radius = coordinates[0] - width/2 + 0.5
+	var angle = 2*Math.PI/circleResolution
+
+	var lineData = []
+
+	for(var i=0;i<=circleResolution; i++) {
+		var x = Math.cos(angle*i) * radius + width/2;
+		var y = Math.sin(angle*i) * radius + height/2;
+		lineData.push({'x':x,'y':y})
+	}
+	lineData.push(lineData[0]);
+
+	var color = d3.hsl(radius,0.5,0.5)
+	console.log(color)
+	svg.append("path")
+		.attr("d", lineFunction(lineData))
+		.attr("stroke", color.rgb())
+		.attr("stroke-width", 2)
+		.attr("fill", "none");
+}
+
+svg.on('mousemove', function () {
+	var coordinates = [0, 0];
+	coordinates = d3.mouse(this);
+	draw(coordinates);
+});
+
+</script>
+<br/><a href="/">home</a>
+</body>
+</html>
