@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Explorations of Visualizations</title>
+	<style>
+	body {
+		background-color: white;
+		color: black;
+	}
+    #area {
+    	border: 1px solid #444;
+    	height: 600px;
+    	width: 600px
+    }
+	</style>
+	<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+</head>
+<body>
+<h1>Generative Design</h1>
+<h2>P2.1.1: Alignment in a Grid</h2>
+
+<p>Line Caps - 1: Round, 2: Square, 3: Butt</p>
+<script type="text/javascript">
+var fillOverlap = 20;
+var fillOpacity = 0.6;
+var runPercent = 0.7;
+var skipPercent = 0.4;
+
+var height = 600;
+var width = 600;
+var hueValues = [];
+var saturationValues = [];
+var luminanceValues = [];
+var resolutionX = 50, resolutionY = 50;
+var tileCount = height/resolutionY * width/resolutionX;
+var lineCap = "square"
+var svg = d3
+	.select("body")
+	.append("svg")
+	.attr("id","area")
+
+var angleScale = d3.scale.linear()
+    .domain([0,width])
+    .range([2,80]);
+
+function clear() {
+	svg.selectAll("*").remove();
+}
+function draw(coordinates) {
+	clear();
+	for(var gridY=0; gridY<height; gridY += resolutionY){
+		for(var gridX=0; gridX<width; gridX += resolutionX){
+			var posX = width/tileCount*gridX;
+			var posY = height/tileCount*gridY
+			var toggle = Math.floor(Math.random()*2)
+
+			var stroke = 1
+			if(toggle == 0) {
+				stroke = coordinates[0]/20;
+				svg.append("line")
+					.attr("x1", gridX)
+					.attr("y1", gridY)
+					.attr("x2", gridX+resolutionX)
+					.attr("y2", gridY+resolutionY)
+					.attr("stroke-width", stroke)
+					.attr("stroke", "red")
+					.attr("stroke-linecap", lineCap)
+			} else {
+				stroke = coordinates[1]/20;
+				svg.append("line")
+					.attr("x1", gridX)
+					.attr("y1", gridY+resolutionY)
+					.attr("x2", gridX+resolutionX)
+					.attr("y2", gridY)
+					.attr("stroke-width", stroke)
+					.attr("stroke", "blue")				
+					.attr("stroke-linecap", lineCap)
+			}
+
+		}
+	}
+}
+
+svg.on('mousemove', function () {
+	var coordinates = [0, 0];
+	coordinates = d3.mouse(this);
+	draw(coordinates);
+});
+d3.select("body")
+    .on("keydown", function() {
+    	switch(d3.event.keyCode) {
+    		case 49:
+    			lineCap = "round";
+    			break;
+    		case 50:
+    			lineCap = "square";
+    			break;	
+    		case 51:
+    			lineCap = "butt";
+    			break;	    			
+    	}
+    });
+
+</script>
+<br/><a href="/">home</a>
+</body>
+</html>
