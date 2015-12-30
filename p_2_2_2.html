@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Explorations of Visualizations</title>
+	<style>
+	body {
+		background-color: white;
+		color: black;
+	}
+    #area {
+    	border: 1px solid #444;
+    	height: 600px;
+    	width: 600px
+    }
+	</style>
+	<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+</head>
+<body>
+<h1>Generative Design</h1>
+<h2>P2.2.2: Intelligent Agents</h2>
+
+<p>Press <code>1</code> to run a simulation</p>
+<script type="text/javascript">
+var colorPercent = 0.9;
+var sizePercent = 0.9;
+
+var height = 600;
+var width = 600;
+var svg = d3
+	.select("body")
+	.append("svg")
+	.attr("id","area")
+
+function clear() {
+	svg.selectAll("*").remove();
+}
+var stepSize = 4
+var diameter = 1
+var iterations = 5000
+
+function draw(coordinates) {
+	clear();
+	var posX = width / 2
+	var posY = height / 2	
+	for(var i=0; i<=iterations; i++){
+		var direction = Math.floor(Math.random()*8)
+
+
+		switch(direction) {
+			case 0: // North
+				posY -= stepSize;
+				break;
+			case 1: //NE
+				posX += stepSize
+				posY -= stepSize
+				break;
+			case 2: //E
+				posX += stepSize
+				break;
+			case 3: // SE
+				posX += stepSize;
+				posY += stepSize;
+				break;
+			case 4: // S
+				posY += stepSize
+				break;
+			case 5: // SW
+				posX -= stepSize
+				posY += stepSize
+				break;
+			case 6: // W
+				posX -= stepSize;
+				break;
+			case 7: // NW
+				posX -= stepSize
+				posY -= stepSize
+				break;		
+			
+		}
+
+		if(posX > width) posX = 0;
+		if(posX < 0) posX = width;
+		if(posY < 0) posY = height;
+		if(posY > height) posY = 0;
+
+		var color = "#BBBBBB"
+		diameter = 1
+		if(Math.random() > colorPercent) {
+			color = "blue"
+		}
+		if(Math.random() > sizePercent) {
+			diameter = 3
+		}
+		svg.append("circle")
+			.attr("cx", posX)
+			.attr("cy", posY)
+			.attr("r", diameter)
+			.attr("fill", color)
+			.attr("fill-opacity",0.6)
+			.attr("stroke", color)
+	}
+}
+
+var coordinates = [0, 0];
+svg.on('mousemove', function () {
+	coordinates = d3.mouse(this);
+	//draw(coordinates);
+});
+d3.select("body")
+    .on("keydown", function() {
+    	switch(d3.event.keyCode) {
+    		case 49:
+    			draw();
+    			break;   			
+    	}
+    });
+
+</script>
+<br/><a href="/">home</a>
+</body>
+</html>
