@@ -19,6 +19,7 @@
 <h1>Generative Design</h1>
 <h2>P1.2: Color Spectrum Variants</h2>
 
+<p>Press 1 or 2 or 3 to experiment with different color variations</p>
 <script type="text/javascript">
 var fillOverlap = 20;
 var fillOpacity = 0.6;
@@ -70,7 +71,6 @@ var svg = d3
 var tileCount = height/resolutionY * width/resolutionX;
 d3.select("body")
     .on("keydown", function() {
-    	console.log("Color code", d3.event.keyCode.toString())
     	switch(d3.event.keyCode) {
     		case 49:
     			for(var i=0;i<tileCount;i++) {
