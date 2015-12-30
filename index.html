@@ -17,93 +17,12 @@
 </head>
 <body>
 <h1>Generative Design</h1>
-<h2>P1.1: Color Spectrum</h2>
+<h2>P0: Index</h2>
 
-<script type="text/javascript">
-var fillOverlap = 20;
-var fillOpacity = 0.6;
-var runPercent = 0.7;
-var skipPercent = 0.4;
-
-var height = 400;
-var width = 800;
-var hueValues = [];
-var saturationValues = [];
-var luminanceValues = [];
-var resolutionX = 50, resolutionY = 100;
-
-function draw(coordinates) {
-	svg.selectAll("*").remove();
-	var index;
-	for(var gridY=0; gridY<height; gridY += resolutionY){
-		for(var gridX=0; gridX<width; gridX += resolutionX){
-			if(Math.random() > skipPercent) {
-
-				
-				if(Math.random() > runPercent) {
-					index = gridY/resolutionY  * width/resolutionY + gridX/resolutionX
-				}
-				var fill = d3.hsl(hueValues[index], saturationValues[index], luminanceValues[index])
-				console.log("Color", luminanceValues[index])
-				svg.append("rect")
-					.attr("fill", fill.rgb())
-					.attr("fill-opacity", fillOpacity)
-					.attr("x",gridX)
-					.attr("y",gridY)
-					.attr("width", resolutionX)
-					.attr("height", resolutionY+fillOverlap)
-			}
-		}
-	}
-}
-var svg = d3
-	.select("body")
-	.append("svg")
-	.attr("id","area")
-
-//svg.on('mousemove', function () {
-//	var coordinates = [0, 0];
-//	coordinates = d3.mouse(this);
-//	draw(coordinates);
-//});
-
-var tileCount = height/resolutionY * width/resolutionX;
-d3.select("body")
-    .on("keydown", function() {
-    	console.log("Color code", d3.event.keyCode.toString())
-    	switch(d3.event.keyCode) {
-    		case 49:
-    			for(var i=0;i<tileCount;i++) {
-    				hueValues[i] = parseInt(Math.random() * 360);
-    				saturationValues[i] = Math.random();
-    				luminanceValues[i] = Math.random();
-    			}
-    			break;
-    		case 50:
-    			for(var i=0;i<tileCount;i++) {
-    				hueValues[i] = parseInt(Math.random() * 360);
-    				saturationValues[i] = Math.random();
-    				luminanceValues[i] = 0.5;
-    			}
-    			break;	
-    		case 51:
-    			for(var i=0;i<tileCount;i++) {
-    				hueValues[i] = parseInt(Math.random() * 360);
-    				saturationValues[i] = 0.5;
-    				luminanceValues[i] = Math.random();
-    			}
-    			break;	    			
-    		default:
-    			for(var i=0;i<tileCount;i++) {
-    				hueValues[i] = parseInt(Math.random() * 360);
-    				saturationValues[i] = 0.5;
-    				luminanceValues[i] = 0.5;
-    			}    		
-    	}
-    	draw();
-
-
-    });
-</script>
+<ul>
+	<li><a href="p_1_0.html">P1.0: Hello, Color</a></li>
+	<li><a href="p_1_0.html">P1.1: Color Spectrum</a></li>
+	<li><a href="p_1_0.html">P1.2: Color Spectrum Variants</a></li>
+</ul>
 </body>
 </html>
