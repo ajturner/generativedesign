@@ -44,6 +44,7 @@ function draw(coordinates) {
 	var posX = width / 2
 	var posY = height / 2
 	for(var i=0; i<=iterations; i++){
+		setTimeout(function(){
 		var direction = Math.floor(Math.random()*8)
 
 
@@ -92,13 +93,16 @@ function draw(coordinates) {
 		if(Math.random() > sizePercent) {
 			diameter = 3
 		}
-		svg.append("circle")
-			.attr("cx", posX)
-			.attr("cy", posY)
-			.attr("r", diameter)
-			.attr("fill", color)
-			.attr("fill-opacity",0.6)
-			.attr("stroke", color)
+			console.log("draw", [posX, posY])
+			svg.append("circle")
+				.attr("cx", posX)
+				.attr("cy", posY)
+				.attr("r", diameter)
+				.attr("fill", color)
+				.attr("fill-opacity",0.6)
+				.attr("stroke", color);
+		}, 20);
+
 	}
 }
 
@@ -116,14 +120,14 @@ d3.select("body")
     	}
     });
 
-		draw();
+draw();
 
 // Redraw every three seconds
 (function loopsiloop(){
 	setTimeout(function() {
 		draw();
 		loopsiloop();
-	}, 30000);
+	}, 10000);
 })();
 
 
