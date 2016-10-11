@@ -10,6 +10,11 @@
     #area {
     	/*border: 1px solid #444;*/
     	height: 1920px;
+			height:100%;
+			display:block;
+		  position:absolute;
+		  bottom:20px;
+
     	width: 100%;
     }
 	</style>
@@ -23,8 +28,8 @@
 var colorPercent = 0.9;
 var sizePercent = 0.9;
 
-var height = 1080;
-var width = 1920;
+var height = 1920;
+var width = 1080;
 var svg = d3
 	.select("body")
 	.append("svg")
@@ -83,12 +88,12 @@ function draw(coordinates) {
 		if(posY > height) posY = 0;
 
 		var color = "#BBBBBB"
-		diameter = 1
+		diameter = 2
 		if(Math.random() > colorPercent) {
 			color = "blue"
 		}
 		if(Math.random() > sizePercent) {
-			diameter = 3
+			diameter = 6
 		}
 		svg.append("circle")
 			.attr("cx", posX)
