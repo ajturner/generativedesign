@@ -45,55 +45,53 @@ function draw(coordinates) {
 	var posY = height / 2
 	for(var i=0; i<=iterations; i++){
 		setTimeout(function(){
-		var direction = Math.floor(Math.random()*8)
+			var direction = Math.floor(Math.random()*8)
 
+			switch(direction) {
+				case 0: // North
+					posY -= stepSize;
+					break;
+				case 1: //NE
+					posX += stepSize
+					posY -= stepSize
+					break;
+				case 2: //E
+					posX += stepSize
+					break;
+				case 3: // SE
+					posX += stepSize;
+					posY += stepSize;
+					break;
+				case 4: // S
+					posY += stepSize
+					break;
+				case 5: // SW
+					posX -= stepSize
+					posY += stepSize
+					break;
+				case 6: // W
+					posX -= stepSize;
+					break;
+				case 7: // NW
+					posX -= stepSize
+					posY -= stepSize
+					break;
 
-		switch(direction) {
-			case 0: // North
-				posY -= stepSize;
-				break;
-			case 1: //NE
-				posX += stepSize
-				posY -= stepSize
-				break;
-			case 2: //E
-				posX += stepSize
-				break;
-			case 3: // SE
-				posX += stepSize;
-				posY += stepSize;
-				break;
-			case 4: // S
-				posY += stepSize
-				break;
-			case 5: // SW
-				posX -= stepSize
-				posY += stepSize
-				break;
-			case 6: // W
-				posX -= stepSize;
-				break;
-			case 7: // NW
-				posX -= stepSize
-				posY -= stepSize
-				break;
+			}
 
-		}
+			if(posX > width) posX = 0;
+			if(posX < 0) posX = width;
+			if(posY < 0) posY = height;
+			if(posY > height) posY = 0;
 
-		if(posX > width) posX = 0;
-		if(posX < 0) posX = width;
-		if(posY < 0) posY = height;
-		if(posY > height) posY = 0;
-
-		var color = "#BBBBBB"
-		diameter = 1
-		if(Math.random() > colorPercent) {
-			color = "blue"
-		}
-		if(Math.random() > sizePercent) {
-			diameter = 3
-		}
-			console.log("draw", [posX, posY])
+			var color = "#BBBBBB"
+			diameter = 1
+			if(Math.random() > colorPercent) {
+				color = "blue"
+			}
+			if(Math.random() > sizePercent) {
+				diameter = 3
+			}
 			svg.append("circle")
 				.attr("cx", posX)
 				.attr("cy", posY)
@@ -101,7 +99,7 @@ function draw(coordinates) {
 				.attr("fill", color)
 				.attr("fill-opacity",0.6)
 				.attr("stroke", color);
-		}, 20);
+		}, 1000);
 
 	}
 }
@@ -127,7 +125,7 @@ draw();
 	setTimeout(function() {
 		draw();
 		loopsiloop();
-	}, 10000);
+	}, 30000);
 })();
 
 
