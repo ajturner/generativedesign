@@ -19,7 +19,6 @@
 <h1>Generative Design</h1>
 <h2>P2.2.2: Intelligent Agents</h2>
 
-<p>Press <code>1</code> to run a simulation</p>
 <script type="text/javascript">
 var colorPercent = 0.9;
 var sizePercent = 0.9;
@@ -41,7 +40,7 @@ var iterations = 5000
 function draw(coordinates) {
 	clear();
 	var posX = width / 2
-	var posY = height / 2	
+	var posY = height / 2
 	for(var i=0; i<=iterations; i++){
 		var direction = Math.floor(Math.random()*8)
 
@@ -74,8 +73,8 @@ function draw(coordinates) {
 			case 7: // NW
 				posX -= stepSize
 				posY -= stepSize
-				break;		
-			
+				break;
+
 		}
 
 		if(posX > width) posX = 0;
@@ -111,11 +110,21 @@ d3.select("body")
     	switch(d3.event.keyCode) {
     		case 49:
     			draw();
-    			break;   			
+    			break;
     	}
     });
 
+// Redraw every three seconds
+(function loopsiloop(){
+	setTimeout(function() {
+		draw();
+		loopsiloop();
+	}, 3000);
+})();
+
+
 </script>
+<p>Press <code>1</code> to run a simulation</p>
 <br/><a href="/">home</a>
 </body>
 </html>
