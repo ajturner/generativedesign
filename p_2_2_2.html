@@ -9,16 +9,22 @@
 		width: 100%;
 		height: 100%;
 	}
-    #area {
+	html, body { margin:0; padding:0; overflow:hidden }
+	body { background:#eee; margin:0 }
+svg {
+	display:block; border:1px solid #ccc; position:absolute;
+	top:5%; left:5%; width:90%; height:90%; background:#fff;
+}
+    /*#area {
     	/*border: 1px solid #444;*/
     	height: 2560px;
-			height:100%;
+			/*height:100%;
 			display:block;
 		  position:absolute;
-		  bottom:20px;
+		  bottom:20px;*/
 
     	width: 100%;
-    }
+    }*/
 	</style>
 	<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
 </head>
@@ -30,19 +36,20 @@
 var colorPercent = 0.9;
 var sizePercent = 0.9;
 
-var height = 2560;
-var width = 1440;
+var height = 640;
+var width = 360;
 var svg = d3
 	.select("body")
 	.append("svg")
 	.attr("id","area")
-
+	.attr("viewBox", "0 0 360 640")
 function clear() {
 	svg.selectAll("*").remove();
 }
 var stepSize = 4
 var diameter = 1
-var iterations = 20000
+var iterations = 5000
+
 
 function draw(coordinates) {
 	clear();
@@ -90,12 +97,12 @@ function draw(coordinates) {
 		if(posY > height) posY = 0;
 
 		var color = "#BBBBBB"
-		diameter = 2
+		diameter = 1
 		if(Math.random() > colorPercent) {
 			color = "blue"
 		}
 		if(Math.random() > sizePercent) {
-			diameter = 6
+			diameter = 3
 		}
 		svg.append("circle")
 			.attr("cx", posX)
@@ -120,6 +127,8 @@ d3.select("body")
     			break;
     	}
     });
+
+		draw();
 
 // Redraw every three seconds
 (function loopsiloop(){
