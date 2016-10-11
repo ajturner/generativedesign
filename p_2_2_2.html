@@ -8,23 +8,23 @@
 		color: black;
 	}
     #area {
-    	border: 1px solid #444;
-    	height: 600px;
-    	width: 600px
+    	/*border: 1px solid #444;*/
+    	height: 1920px;
+    	width: 100%;
     }
 	</style>
 	<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
 </head>
 <body>
-<h1>Generative Design</h1>
-<h2>P2.2.2: Intelligent Agents</h2>
+<!-- <h1>Generative Design</h1>
+<h2>P2.2.2: Intelligent Agents</h2> -->
 
 <script type="text/javascript">
 var colorPercent = 0.9;
 var sizePercent = 0.9;
 
-var height = 600;
-var width = 600;
+var height = 1080;
+var width = 1920;
 var svg = d3
 	.select("body")
 	.append("svg")
@@ -35,7 +35,7 @@ function clear() {
 }
 var stepSize = 4
 var diameter = 1
-var iterations = 5000
+var iterations = 20000
 
 function draw(coordinates) {
 	clear();
@@ -124,7 +124,7 @@ d3.select("body")
 
 
 </script>
-<p>Press <code>1</code> to run a simulation</p>
-<br/><a href="/">home</a>
+<!-- <p>Press <code>1</code> to run a simulation</p>
+<br/><a href="/">home</a> -->
 </body>
 </html>
